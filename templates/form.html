@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Incident Report Form</title></head>
+<body>
+    <h1>Fill out incident report</h1>
+    <form method="POST" enctype="multipart/form-data">
+        Name: <input type="text" name="name" required><br><br>
+        License: <input type="text" name="license"><br><br>
+        Date: <input type="date" name="date"><br><br>
+        Reported To: <input type="text" name="repored_to"><br><br>
+        Reported By: <input type="text" name="reported_by"><br><br>
+        Description: <textarea name="description" rows="4" cols="30"></textarea><br><br>
+        Specific Area: <input type="text" name="specific_area"><br><br>
+        Incident Time: <input type="time" name="incident_time"><br><br>
+        Report Time: <input type="time" name="report_time"><br><br>
+        Tenant Name: <input type="text" name="tenant_name"><br><br>
+        Phone: <input type="text" name="tenant_phone"><br><br>
+        Upload Photo: <input type="file" name="photo" accept="image/*" required><br><br>
+        <input type="submit" value="Generate Report">
+    </form>
+</body>
+</html>
