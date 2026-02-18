@@ -1,22 +1,181 @@
 <!DOCTYPE html>
 <html>
-<head><title>Incident Report Form</title></head>
+<head>
+    <title>Incident Report Form</title>
+</head>
 <body>
     <h1>Fill out incident report</h1>
-    <form method="POST" enctype="multipart/form-data">
-        Name: <input type="text" name="name" required><br><br>
-        License: <input type="text" name="license"><br><br>
-        Date: <input type="date" name="date"><br><br>
-        Reported To: <input type="text" name="repored_to"><br><br>
+
+    <form method="POST" action="/" enctype="multipart/form-data">
+>
+<!--Guard Details-->
+        <label for="name">Guard Name:</label>
+        <select id="name" name="name" required>
+            <option value="Hanad Mohamed">Hanad Mohamed</option>
+        </select><br><br>
+
+        <label for="license">License ID:</label>
+        <select id="license" name="license" required>
+            <option value="970-070-80S">970-070-80S</option>
+        </select><br><br>
+<!--Incident Details-->
+        Date: <input type="date" id="date" name="date" ><br><br>
+        Incident Time: <input type="time" id="incident_time" name="incident_time"><br><br>
+        Reported Time: <input type="time" id="reported_time" name="reported_time"><br><br>
         Reported By: <input type="text" name="reported_by"><br><br>
+        Specific Area: <input type="text" name="specific_area"><br><br>    
+        <!-- Crime Related Incidents Dropdown -->
+        <label for="incident_type">Incident Type:</label><br><br>
+        <label for="crime_related_incidents">Crime Related Incidents:</label>
+        <select id="crime_related_incidents" name="crime_related_incidents">
+            <option value="N/A">N/A</option>
+            <option value="Theft - From a Retailer (Shoplift)">Theft - From a Retailer (Shoplift)</option>
+            <option value="Assault">Assault</option>
+            <option value="Vandalism">Vandalism</option>
+        </select>
+        <br><br>
+
+    <!-- Non-Crime Related Incidents Dropdown -->
+        <label for="non_crime_related_incidents">Non-Crime Related Incidents:</label>
+        <select id="non_crime_related_incidents" name="non_crime_related_incidents">
+            <option value="N/A">N/A</option>
+            <option value="Disturbance">Disturbance</option>
+            <option value="Medical Emergency">Medical Emergency</option>
+            <option value="Fire/Safety">Fire/Safety</option>
+            <option value="Other">Other</option>
+        </select>
+        <br><br>
+
         Description: <textarea name="description" rows="4" cols="30"></textarea><br><br>
-        Specific Area: <input type="text" name="specific_area"><br><br>
-        Incident Time: <input type="time" name="incident_time"><br><br>
-        Report Time: <input type="time" name="report_time"><br><br>
-        Tenant Name: <input type="text" name="tenant_name"><br><br>
-        Phone: <input type="text" name="tenant_phone"><br><br>
-        Upload Photo: <input type="file" name="photo" accept="image/*" required><br><br>
+        Actions Taken: <textarea name="actions_taken" rows="4" cols="30"></textarea><br><br>
+        Upload Photo: <input type="file" name="photo" accept="image/*" ><br><br>
+
+
+
+<!-- Emergency Services Called -->
+    <label for="emergency_services_called">Emergency Services Called:</label>
+    <select id="emergency_services_called" name="emergency_services_called" required>
+        <option value="NO">NO</option>
+        <option value="YES">YES</option>
+    </select>
+    <br><br>
+    <label for="time_called">Time Called:</label>
+    <input type="time" id="time_called" name="time_called">
+    <br><br>
+    <label for="time_arrived">Time Arrived:</label>
+    <input type="time" id="time_arrived" name="time_arrived">
+    <br><br>
+    <label for="station_or_unit">Station or Unit:</label>
+    <input type="text" id="station_or_unit" name="station_or_unit">
+    <br><br>
+    <label for="attending_officers">Name of Attending Officer(s) – ID No.:</label><br>
+    <textarea id="attending_officers" name="attending_officers" rows="2" cols="30" 
+            placeholder="Officer names and ID numbers"></textarea>
+    <br><br>
+
+
+<!-- Person 1 Details -->
+<h3>Person 1 Involved in the Incident</h3>
+
+<label for="person1_type">This person is:</label>
+<select id="person1_type" name="person1_type">
+    <option value="">Select</option>
+    <option value="Tenant">Tenant</option>
+    <option value="Visitor">Visitor</option>
+    <option value="Employee">Employee</option>
+    <option value="Customer">Customer</option>
+    <option value="Suspect">Suspect</option>
+    <option value="Witness">Witness</option>
+</select>
+<br><br>
+
+<label for="person1_full_name">Full Name:</label>
+<input type="text" id="person1_full_name" name="person1_full_name">
+<br><br>
+
+<label for="person1_dob">Date of Birth:</label>
+<input type="date" id="person1_dob" name="person1_dob">
+<br><br>
+
+<label for="person1_age">Approx. Age:</label>
+<input type="number" id="person1_age" name="person1_age" min="1" max="120">
+<br><br>
+
+<label for="person1_postcode">Post Code:</label>
+<input type="text" id="person1_postcode" name="person1_postcode">
+<br><br>
+
+<label for="person1_address">Street Address:</label>
+<input type="text" id="person1_address" name="person1_address">
+<br><br>
+
+<label for="person1_suburb">Suburb:</label>
+<input type="text" id="person1_suburb" name="person1_suburb">
+<br><br>
+
+<label for="person1_phone1">Contact Phone Number 1:</label>
+<input type="tel" id="person1_phone1" name="person1_phone1">
+<br><br>
+
+<label for="person1_phone2">Contact Phone Number 2:</label>
+<input type="tel" id="person1_phone2" name="person1_phone2">
+<br><br>
+
+<hr>
+<!---Person 2 Details-->
+<h3>Person 2 Involved in the Incident</h3>
+
+<label for="person2_type">This person is:</label>
+<select id="person2_type" name="person2_type">
+    <option value="">Select</option>
+    <option value="Tenant">Tenant</option>
+    <option value="Visitor">Visitor</option>
+    <option value="Employee">Employee</option>
+    <option value="Customer">Customer</option>
+    <option value="Suspect">Suspect</option>
+    <option value="Witness">Witness</option>
+</select>
+<br><br>
+
+<label for="person2_full_name">Full Name:</label>
+<input type="text" id="person2_full_name" name="person2_full_name">
+<br><br>
+
+<label for="person2_dob">Date of Birth:</label>
+<input type="date" id="person2_dob" name="person2_dob">
+<br><br>
+
+<label for="person2_age">Approx. Age:</label>
+<input type="number" id="person2_age" name="person2_age" min="1" max="120">
+<br><br>
+
+<label for="person2_postcode">Post Code:</label>
+<input type="text" id="person2_postcode" name="person2_postcode">
+<br><br>
+
+<label for="person2_address">Street Address:</label>
+<input type="text" id="person2_address" name="person2_address">
+<br><br>
+
+<label for="person2_suburb">Suburb:</label>
+<input type="text" id="person2_suburb" name="person2_suburb">
+<br><br>
+
+<label for="person2_phone1">Contact Phone Number 1:</label>
+<input type="tel" id="person2_phone1" name="person2_phone1">
+<br><br>
+
+<label for="person2_phone2">Contact Phone Number 2:</label>
+<input type="tel" id="person2_phone2" name="person2_phone2">
+<br><br>
+
+
+
+<!--Person 2 Involved Details-->      
         <input type="submit" value="Generate Report">
     </form>
+
+    <!-- Move script here so DOM is ready -->
+    <script src="static/script.js"></script>
 </body>
 </html>
