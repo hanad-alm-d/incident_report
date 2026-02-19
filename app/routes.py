@@ -70,6 +70,7 @@ def index():
         forms_folder = os.path.join(base_dir, "forms")
         template_path = os.path.join(forms_folder, "incident_form_template.docx")
         output_path = os.path.join(forms_folder, "incident_form_filled.docx")
+    
 
         photo = request.files.get("photo")
 
@@ -93,6 +94,6 @@ def index():
             os.remove(photo_path)
 
         elapsed_time = time.time() - start_time
-        return f"✅ Report submitted and emailed successfully in {elapsed_time:.2f} seconds!"
+        return render_template("confirmation.html")
 
     return render_template("form.html")
