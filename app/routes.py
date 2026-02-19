@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template
 import os
+from flask import current_app
 import time
 from werkzeug.utils import secure_filename
 
@@ -65,14 +66,16 @@ def index():
         image_data = {}
         photo_path = None
 
-        template_path = os.path.join(FORMS_FOLDER, "incident_form_template.docx")
-        output_path = os.path.join(FORMS_FOLDER, "incident_form_filled.docx")
+        base_dir = current_app.root_path  # points to 'app/'
+        forms_folder = os.path.join(base_dir, "forms")
+        template_path = os.path.join(forms_folder, "incident_form_template.docx")
+        output_path = os.path.join(forms_folder, "incident_form_filled.docx")
 
         photo = request.files.get("photo")
 
         if photo and allowed_file(photo.filename):
             filename = secure_filename(photo.filename)
-            upload_folder = os.path.join(FORMS_FOLDER, "uploaded")
+            upload_folder = current_app.config["UPLOAD_FOLDER"]
             photo_path = os.path.join(upload_folder, filename)
             photo.save(photo_path)
             image_data["photo"] = (photo_path, 3.0, 3.0)

@@ -1,17 +1,19 @@
-from flask import Flask
 import os
+from flask import Flask
 
 def create_app():
-    # __file__ is app/__init__.py
-    # ../templates goes up one level to project root, then into templates/
-    templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../templates")
+    base_dir = os.path.dirname(os.path.abspath(__file__))
 
+    templates_path = os.path.join(base_dir, "templates")
     app = Flask(__name__, template_folder=templates_path)
 
-    # ===== FOLDER STRUCTURE =====
-    FORMS_FOLDER = "forms"
-    UPLOAD_FOLDER = os.path.join(FORMS_FOLDER, "uploaded")
-    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+    # forms is now inside app/
+    upload_folder = os.path.join(base_dir, "forms", "uploaded")
+
+    # Ensure folder exists
+    os.makedirs(upload_folder, exist_ok=True)
+
+    app.config["UPLOAD_FOLDER"] = upload_folder
 
     from .routes import main
     app.register_blueprint(main)
