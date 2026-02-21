@@ -12,26 +12,37 @@ load_dotenv()
 EMAIL_ADDRESS = os.getenv("EMAIL_USER")
 EMAIL_APP_PASSWORD = os.getenv("EMAIL_PASS")
 
-email_server = None
+_email_server = None  # Singleton instance
+
+
+def email_server_instance():
+    """Return the current email server instance (singleton)."""
+    global _email_server
+    return _email_server
 
 
 def start_email_server():
-    global email_server
+    """Start SMTP server only if not already started (singleton)."""
+    global _email_server
+    if _email_server is not None:
+        print("📪 Email server already started (singleton).")
+        return
+
     try:
-        email_server = smtplib.SMTP("smtp.gmail.com", 587)
-        email_server.starttls()
-        email_server.login(EMAIL_ADDRESS, EMAIL_APP_PASSWORD)
+        _email_server = smtplib.SMTP("smtp.gmail.com", 587)
+        _email_server.starttls()
+        _email_server.login(EMAIL_ADDRESS, EMAIL_APP_PASSWORD)
         print("✅ Email server started and authenticated.")
     except Exception as e:
         print(f"❌ Failed to start email server: {e}")
         traceback.print_exc()
-        email_server = None
+        _email_server = None
 
 
 def close_email_server():
-    global email_server
-    if email_server:
-        email_server.quit()
+    global _email_server
+    if _email_server:
+        _email_server.quit()
         print("📪 Email server connection closed.")
 
 
@@ -39,7 +50,7 @@ atexit.register(close_email_server)
 
 
 def send_email_with_attachment(subject, body, to, attachment_path):
-    if not email_server:
+    if _email_server is None:
         print("❌ Email server is not initialized.")
         return
 
@@ -50,17 +61,12 @@ def send_email_with_attachment(subject, body, to, attachment_path):
     msg.attach(MIMEText(body, "plain"))
 
     with open(attachment_path, "rb") as f:
-        part = MIMEApplication(
-            f.read(),
-            Name=os.path.basename(attachment_path),
-        )
-        part["Content-Disposition"] = (
-            f'attachment; filename="{os.path.basename(attachment_path)}"'
-        )
+        part = MIMEApplication(f.read(), Name=os.path.basename(attachment_path))
+        part["Content-Disposition"] = f'attachment; filename="{os.path.basename(attachment_path)}"'
         msg.attach(part)
 
     try:
-        email_server.send_message(msg)
+        _email_server.send_message(msg)
         print("✅ Email sent successfully.")
     except Exception as e:
         print(f"❌ Failed to send email: {e}")
