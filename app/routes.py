@@ -6,9 +6,8 @@ from werkzeug.utils import secure_filename
 
 from .utils.docx_utils import fill_template_with_image
 from .utils.email_utils import (
-    send_email_with_attachment,
-    start_email_server,
-)
+    send_email_with_attachment
+    )
 
 main = Blueprint("main", __name__)
 

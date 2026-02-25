@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 8000
 
 # Start the Flask app using python run.py
-CMD ["python", "run.py"]
+CMD ["gunicorn", "run:app", "--workers", "2", "--threads", "2", "--bind", "0.0.0.0:8000"]
