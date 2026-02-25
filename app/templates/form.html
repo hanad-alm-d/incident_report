@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Incident Report Form</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+    <title>Incident Report Form(test)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
+
 <body>
     <h1>Fill Out Incident Report</h1>
 
@@ -46,16 +48,16 @@
                 <label for="reported_by">Reported By:</label>
                 <input type="text" id="reported_by" name="reported_by">
             </div>
-        
 
-        
+
+
             <div class="form-group">
                 <label for="specific_area">Specific Area:</label>
                 <input type="text" id="specific_area" name="specific_area">
             </div>
-       
 
-        
+
+
             <div class="form-group">
                 <label for="crime_related_incidents">Crime Related Incidents:</label>
                 <select id="crime_related_incidents" name="crime_related_incidents">
@@ -75,12 +77,12 @@
                     <option value="Other">Other</option>
                 </select>
             </div>
-      
+
             <div class="form-group">
                 <label for="photo">Upload Photo:</label>
                 <input type="file" id="photo" name="photo" accept="image/*">
             </div>
-        
+
             <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4"></textarea>
@@ -89,10 +91,10 @@
                 <label for="actions_taken">Actions Taken:</label>
                 <textarea id="actions_taken" name="actions_taken" rows="4"></textarea>
             </div>
-       
 
-        
-            
+
+
+
         </div>
 
         <!-- Emergency Services -->
@@ -117,12 +119,13 @@
                 <label for="station_or_unit">Station or Unit:</label>
                 <input type="text" id="station_or_unit" name="station_or_unit">
             </div>
-        
 
-      
+
+
             <div class="form-group">
                 <label for="attending_officers">Attending Officer(s) – ID No.:</label>
-                <textarea id="attending_officers" name="attending_officers" rows="2" placeholder="Officer names and ID numbers"></textarea>
+                <textarea id="attending_officers" name="attending_officers" rows="2"
+                    placeholder="Officer names and ID numbers"></textarea>
             </div>
         </div>
 
@@ -153,9 +156,9 @@
                 <label for="person1_age">Approx. Age:</label>
                 <input type="number" id="person1_age" name="person1_age" min="1" max="120">
             </div>
-        
 
-        
+
+
             <div class="form-group">
                 <label for="person1_postcode">Post Code:</label>
                 <input type="text" id="person1_postcode" name="person1_postcode">
@@ -178,7 +181,7 @@
             </div>
         </div>
 
-        
+
 
         <!-- Person 2 Details -->
         <h3>Person 2 Involved in the Incident</h3>
@@ -207,10 +210,10 @@
                 <label for="person2_age">Approx. Age:</label>
                 <input type="number" id="person2_age" name="person2_age" min="1" max="120">
             </div>
-       
 
-        
-           <div class="form-group">
+
+
+            <div class="form-group">
                 <label for="person2_postcode">Post Code:</label>
                 <input type="text" id="person2_postcode" name="person2_postcode">
             </div>
@@ -233,14 +236,15 @@
         </div>
 
         <!-- Submit -->
-        
-            <div class="form-group">
-                <input type="submit" value="Generate Report">
-            </div>
-       
+
+        <div class="form-group">
+            <input type="submit" value="Generate Report">
+        </div>
+
 
     </form>
     <!-- Loading Overlay -->
 
 </body>
+
 </html>
