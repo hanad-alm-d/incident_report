@@ -85,8 +85,11 @@ def index():
         send_email_with_attachment(
             subject="Incident Report",
             body="Attached is the generated incident report.",
-            to="hanadalimohamed1@gmail.com",
-            attachment_path=output_path,
+            to=[
+            "hanadalimohamed1@gmail.com",
+            "tud35890@gmail.com",
+            ],
+             attachment_path=output_path,
         )
 
         if photo_path and os.path.exists(photo_path):
