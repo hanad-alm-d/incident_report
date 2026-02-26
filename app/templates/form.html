@@ -3,12 +3,130 @@
 
 <head>
     <title>Incident Report Form</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background: #f4f6f8;
+            padding: 15px;
+            color: #222;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 16px;
+            margin: 25px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e0e0e0;
+            color: #333;
+        }
+
+        form {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 13px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #dcdcdc;
+            background: #fafafa;
+            transition: 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            background: #fff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        /* Sticky submit button */
+        .form-group:last-child {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding-top: 10px;
+        }
+
+        /* Required highlight */
+        input:required,
+        select:required {
+            border-left: 4px solid #007bff;
+        }
+
+        /* Desktop improvement */
+        @media (min-width: 768px) {
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            form {
+                max-width: 900px;
+                margin: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Fill Out Incident Report (Docker Pull test)</h1>
+    <h1>Fill Out Incident Report </h1>
 
     <form method="POST" action="/" enctype="multipart/form-data">
 
