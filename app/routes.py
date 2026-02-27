@@ -87,7 +87,7 @@ def index():
             body="Attached is the generated incident report.",
             to=[
             "hanadalimohamed1@gmail.com",
-            "tud35890@gmail.com",
+            "emporiumsec19@gmail.com",
             ],
              attachment_path=output_path,
         )
