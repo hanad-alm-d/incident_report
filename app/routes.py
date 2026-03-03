@@ -3,6 +3,7 @@ import os
 from flask import current_app
 import time
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 from .utils.docx_utils import fill_template_with_image
 from .utils.email_utils import (
@@ -61,6 +62,32 @@ def index():
             "person2_phone1": request.form.get("person2_phone1", ""),
             "person2_phone2": request.form.get("person2_phone2", ""),
         }
+        # One mapping for ALL incidents
+        incident_code_map = {
+            "N/A": "{insert Code}",  
+            # Crime-related incidents
+            "Theft - From a Retailer (Shoplift)": 5,
+            "Assault": "Black",
+            "Vandalism": 3,
+
+            # Non-crime-related incidents
+            "Disturbance": 4,
+            "Medical Emergency": "Blue",
+            "Fire/Safety": "Red",
+            "Other": 7
+        }
+         
+        selected_incident = request.form.get("crime_related_incidents", "N/A")
+        if selected_incident == "N/A":
+            selected_incident = request.form.get("non_crime_related_incidents", "N/A")
+
+        incident_code = incident_code_map.get(selected_incident, "0")  
+        specific_area = request.form.get("specific_area", "unknown").replace(" ", "_")
+        raw_date = request.form.get("date", "")
+        formatted_date = datetime.strptime(raw_date, "%Y-%m-%d").strftime("%d.%m.%Y") if raw_date else ""
+        
+
+        output_filename = f" {formatted_date} Code {incident_code} {specific_area}.docx"
 
         image_data = {}
         photo_path = None
@@ -68,8 +95,8 @@ def index():
         base_dir = current_app.root_path  # points to 'app/'
         forms_folder = os.path.join(base_dir, "forms")
         template_path = os.path.join(forms_folder, "incident_form_template.docx")
-        output_path = os.path.join(forms_folder, "incident_form_filled.docx")
-    
+        output_path = os.path.join(forms_folder, output_filename)
+     
 
         photo = request.files.get("photo")
 
@@ -79,6 +106,8 @@ def index():
             photo_path = os.path.join(upload_folder, filename)
             photo.save(photo_path)
             image_data["photo"] = (photo_path, 3.0, 3.0)
+        else:
+            photo_path = ""
 
         fill_template_with_image(template_path, output_path, text_data, image_data)
 
@@ -87,13 +116,14 @@ def index():
             body="Attached is the generated incident report.",
             to=[
             "hanadalimohamed1@gmail.com",
-            "emporiumsec19@gmail.com",
+            "tud35890@gmail.com",
             ],
              attachment_path=output_path,
         )
-
+        
         if photo_path and os.path.exists(photo_path):
             os.remove(photo_path)
+        
 
         elapsed_time = time.time() - start_time
         return render_template("confirmation.html")
