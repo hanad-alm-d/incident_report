@@ -30,4 +30,97 @@ window.onload = function () {
       submitButton.value = "Generate Report";
     });
   }
+
+// Templates per crime type
+const templates = {
+    "Theft - From a Retailer (Shoplift)":
+        "At approximately {incident_time} on {date}, a theft occurred at ({specific_area}). " +
+        "The incident was reported by {reported_by}. " +
+        "The person(s) of interest is/are described as: {poi_description}. " +
+        "{item_quantity} item(s) - {item_description} were stolen, valued at ${item_value}."
+};
+
+let activeTemplate = null;
+const theftFields = document.getElementById("theft_fields");
+
+// Replace placeholders
+function fillTemplate(template, values) {
+    return template.replace(/{(\w+)}/g, (_, key) => values[key] || `[${key}]`);
+}
+
+// Collect form values
+function getFormValues() {
+    const fields = [
+        'date',
+        'incident_time',
+        'specific_area',
+        'reported_by',
+        'poi_description',
+        'item_quantity',
+        'item_description',
+        'item_value'
+    ];
+
+    const values = {};
+
+    fields.forEach(field => {
+        const el = document.getElementById(field);
+        if (el) {
+            values[field] = el.value;
+        }
+    });
+
+    return values;
+}
+
+// Update description field
+function updateDescription() {
+    if (!activeTemplate) return;
+
+    const values = getFormValues();
+    const text = fillTemplate(activeTemplate, values);
+
+    document.getElementById('description').value = text;
+}
+
+// Crime selection handler
+document.getElementById('crime_related_incidents').addEventListener('change', function () {
+
+    const crimeType = this.value;
+
+    // Show / hide theft fields
+    if (crimeType === "Theft - From a Retailer (Shoplift)") {
+        theftFields.style.display = "block";
+    } else {
+        theftFields.style.display = "none";
+    }
+
+    // Apply template
+    if (templates[crimeType]) {
+        activeTemplate = templates[crimeType];
+        updateDescription();
+    } else {
+        activeTemplate = null;
+        document.getElementById('description').value = '';
+    }
+
+});
+
+// Live updates when fields change
+[
+ 'date',
+ 'incident_time',
+ 'specific_area',
+ 'reported_by',
+ 'poi_description',
+ 'item_quantity',
+ 'item_description',
+ 'item_value'
+].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('input', updateDescription);
+    }
+});
+
 };

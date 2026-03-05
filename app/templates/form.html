@@ -122,6 +122,60 @@
                 margin: auto;
             }
         }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Collapsible sections */
+        /* Remove default browser marker */
+        /* Collapsible container */
+        .collapsible {
+            margin-top: 20px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            background: #f9fafb;
+            transition: all 0.2s ease;
+            overflow: hidden;
+            /* ensures content stays inside borders */
+        }
+
+        /* Summary header styling */
+        .collapsible>summary {
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 14px 16px;
+            background: #f4f6f8;
+            /* Remove default marker safely */
+            list-style: none;
+        }
+
+        /* Remove default browser arrow */
+        .collapsible>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .collapsible>summary::marker {
+            display: none;
+        }
+
+        /* Custom arrow on the right */
+        .collapsible>summary::after {
+            content: "▼";
+            float: right;
+            transition: transform 0.2s ease;
+        }
+
+        /* Rotate arrow when open */
+        .collapsible[open]>summary::after {
+            transform: rotate(180deg);
+        }
+
+        /* Spacing for inner content */
+        .collapsible .form-row {
+            padding: 15px;
+        }
     </style>
 </head>
 
@@ -154,27 +208,11 @@
                 <label for="date">Date:</label>
                 <input type="date" id="date" name="date">
             </div>
-            <div class="form-group">
-                <label for="incident_time">Incident Time:</label>
-                <input type="time" id="incident_time" name="incident_time">
-            </div>
+
             <div class="form-group">
                 <label for="reported_time">Reported Time:</label>
                 <input type="time" id="reported_time" name="reported_time">
             </div>
-            <div class="form-group">
-                <label for="reported_by">Reported By:</label>
-                <input type="text" id="reported_by" name="reported_by">
-            </div>
-
-
-
-            <div class="form-group">
-                <label for="specific_area">Specific Area:</label>
-                <input type="text" id="specific_area" name="specific_area">
-            </div>
-
-
 
             <div class="form-group">
                 <label for="crime_related_incidents">Crime Related Incidents:</label>
@@ -185,6 +223,7 @@
                     <option value="Vandalism">Vandalism</option>
                 </select>
             </div>
+
             <div class="form-group">
                 <label for="non_crime_related_incidents">Non-Crime Related Incidents:</label>
                 <select id="non_crime_related_incidents" name="non_crime_related_incidents">
@@ -197,161 +236,215 @@
             </div>
 
             <div class="form-group">
+                <label for="incident_time">Incident Time:</label>
+                <input type="time" id="incident_time" name="incident_time">
+            </div>
+
+            <div class="form-group">
+                <label for="specific_area">Specific Area:</label>
+                <input type="text" id="specific_area" name="specific_area">
+            </div>
+
+
+
+            <div id="theft_fields" style="display:none;" class="full-width">
+
+                <h3>Theft Details</h3>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="poi_description">POI Description:</label>
+                        <input type="text" id="poi_description" name="poi_description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="item_quantity">Item Quantity:</label>
+                        <input type="number" id="item_quantity" name="item_quantity">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="item_description">Item Description:</label>
+                        <input type="text" id="item_description" name="item_description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="item_value">Item Value ($):</label>
+                        <input type="text" id="item_value" name="item_value">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label for="reported_by">Reported By:</label>
+                <input type="text" id="reported_by" name="reported_by">
+            </div>
+
+            <div class="form-group">
                 <label for="photo">Upload Photo:</label>
                 <input type="file" id="photo" name="photo" accept="image/*">
             </div>
 
-            <div class="form-group">
+            <div class="form-group full-width">
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4"></textarea>
             </div>
-            <div class="form-group">
+            <div class="form-group full-width">
                 <label for="actions_taken">Actions Taken:</label>
                 <textarea id="actions_taken" name="actions_taken" rows="4"></textarea>
             </div>
 
-
-
-
         </div>
+
+
 
         <!-- Emergency Services -->
-        <h3>Emergency Services</h3>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="emergency_services_called">Emergency Services Called:</label>
-                <select id="emergency_services_called" name="emergency_services_called" required>
-                    <option value="NO">NO</option>
-                    <option value="YES">YES</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="time_called">Time Called:</label>
-                <input type="time" id="time_called" name="time_called">
-            </div>
-            <div class="form-group">
-                <label for="time_arrived">Time Arrived:</label>
-                <input type="time" id="time_arrived" name="time_arrived">
-            </div>
-            <div class="form-group">
-                <label for="station_or_unit">Station or Unit:</label>
-                <input type="text" id="station_or_unit" name="station_or_unit">
-            </div>
+        <details class="collapsible">
+            <summary>Emergency Services</summary>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="emergency_services_called">Emergency Services Called:</label>
+                    <select id="emergency_services_called" name="emergency_services_called" required>
+                        <option value="NO">NO</option>
+                        <option value="YES">YES</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="time_called">Time Called:</label>
+                    <input type="time" id="time_called" name="time_called">
+                </div>
+                <div class="form-group">
+                    <label for="time_arrived">Time Arrived:</label>
+                    <input type="time" id="time_arrived" name="time_arrived">
+                </div>
+                <div class="form-group">
+                    <label for="station_or_unit">Station or Unit:</label>
+                    <input type="text" id="station_or_unit" name="station_or_unit">
+                </div>
 
 
 
-            <div class="form-group">
-                <label for="attending_officers">Attending Officer(s) – ID No.:</label>
-                <textarea id="attending_officers" name="attending_officers" rows="2"
-                    placeholder="Officer names and ID numbers"></textarea>
+                <div class="form-group">
+                    <label for="attending_officers">Attending Officer(s) – ID No.:</label>
+                    <textarea id="attending_officers" name="attending_officers" rows="2"
+                        placeholder="Officer names and ID numbers"></textarea>
+                </div>
             </div>
-        </div>
+        </details>
 
         <!-- Person 1 Details -->
-        <h3>Person 1 Involved in the Incident</h3>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="person1_type">This person is:</label>
-                <select id="person1_type" name="person1_type">
-                    <option value="">Select</option>
-                    <option value="Tenant">Tenant</option>
-                    <option value="Visitor">Visitor</option>
-                    <option value="Employee">Employee</option>
-                    <option value="Customer">Customer</option>
-                    <option value="Suspect">Suspect</option>
-                    <option value="Witness">Witness</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="person1_full_name">Full Name:</label>
-                <input type="text" id="person1_full_name" name="person1_full_name">
-            </div>
-            <div class="form-group">
-                <label for="person1_dob">Date of Birth:</label>
-                <input type="date" id="person1_dob" name="person1_dob">
-            </div>
-            <div class="form-group">
-                <label for="person1_age">Approx. Age:</label>
-                <input type="number" id="person1_age" name="person1_age" min="1" max="120">
-            </div>
+        <details class="collapsible">
+            <summary>Person 1 Involved in the Incident</summary>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="person1_type">This person is:</label>
+                    <select id="person1_type" name="person1_type">
+                        <option value="">Select</option>
+                        <option value="Tenant">Tenant</option>
+                        <option value="Visitor">Visitor</option>
+                        <option value="Employee">Employee</option>
+                        <option value="Customer">Customer</option>
+                        <option value="Suspect">Suspect</option>
+                        <option value="Witness">Witness</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="person1_full_name">Full Name:</label>
+                    <input type="text" id="person1_full_name" name="person1_full_name">
+                </div>
+                <div class="form-group">
+                    <label for="person1_dob">Date of Birth:</label>
+                    <input type="date" id="person1_dob" name="person1_dob">
+                </div>
+                <div class="form-group">
+                    <label for="person1_age">Approx. Age:</label>
+                    <input type="number" id="person1_age" name="person1_age" min="1" max="120">
+                </div>
 
 
 
-            <div class="form-group">
-                <label for="person1_postcode">Post Code:</label>
-                <input type="text" id="person1_postcode" name="person1_postcode">
+
+                <div class="form-group">
+                    <label for="person1_postcode">Post Code:</label>
+                    <input type="text" id="person1_postcode" name="person1_postcode">
+                </div>
+                <div class="form-group">
+                    <label for="person1_address">Street Address:</label>
+                    <input type="text" id="person1_address" name="person1_address">
+                </div>
+                <div class="form-group">
+                    <label for="person1_suburb">Suburb:</label>
+                    <input type="text" id="person1_suburb" name="person1_suburb">
+                </div>
+                <div class="form-group">
+                    <label for="person1_phone1">Phone 1:</label>
+                    <input type="tel" id="person1_phone1" name="person1_phone1">
+                </div>
+                <div class="form-group">
+                    <label for="person1_phone2">Phone 2:</label>
+                    <input type="tel" id="person1_phone2" name="person1_phone2">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="person1_address">Street Address:</label>
-                <input type="text" id="person1_address" name="person1_address">
-            </div>
-            <div class="form-group">
-                <label for="person1_suburb">Suburb:</label>
-                <input type="text" id="person1_suburb" name="person1_suburb">
-            </div>
-            <div class="form-group">
-                <label for="person1_phone1">Phone 1:</label>
-                <input type="tel" id="person1_phone1" name="person1_phone1">
-            </div>
-            <div class="form-group">
-                <label for="person1_phone2">Phone 2:</label>
-                <input type="tel" id="person1_phone2" name="person1_phone2">
-            </div>
-        </div>
+        </details>
 
 
 
         <!-- Person 2 Details -->
-        <h3>Person 2 Involved in the Incident</h3>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="person2_type">This person is:</label>
-                <select id="person2_type" name="person2_type">
-                    <option value="">Select</option>
-                    <option value="Tenant">Tenant</option>
-                    <option value="Visitor">Visitor</option>
-                    <option value="Employee">Employee</option>
-                    <option value="Customer">Customer</option>
-                    <option value="Suspect">Suspect</option>
-                    <option value="Witness">Witness</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="person2_full_name">Full Name:</label>
-                <input type="text" id="person2_full_name" name="person2_full_name">
-            </div>
-            <div class="form-group">
-                <label for="person2_dob">Date of Birth:</label>
-                <input type="date" id="person2_dob" name="person2_dob">
-            </div>
-            <div class="form-group">
-                <label for="person2_age">Approx. Age:</label>
-                <input type="number" id="person2_age" name="person2_age" min="1" max="120">
-            </div>
+        <details class="collapsible">
+            <summary>Person 2 Involved in the Incident</summary>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="person2_type">This person is:</label>
+                    <select id="person2_type" name="person2_type">
+                        <option value="">Select</option>
+                        <option value="Tenant">Tenant</option>
+                        <option value="Visitor">Visitor</option>
+                        <option value="Employee">Employee</option>
+                        <option value="Customer">Customer</option>
+                        <option value="Suspect">Suspect</option>
+                        <option value="Witness">Witness</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="person2_full_name">Full Name:</label>
+                    <input type="text" id="person2_full_name" name="person2_full_name">
+                </div>
+                <div class="form-group">
+                    <label for="person2_dob">Date of Birth:</label>
+                    <input type="date" id="person2_dob" name="person2_dob">
+                </div>
+                <div class="form-group">
+                    <label for="person2_age">Approx. Age:</label>
+                    <input type="number" id="person2_age" name="person2_age" min="1" max="120">
+                </div>
 
 
 
-            <div class="form-group">
-                <label for="person2_postcode">Post Code:</label>
-                <input type="text" id="person2_postcode" name="person2_postcode">
+                <div class="form-group">
+                    <label for="person2_postcode">Post Code:</label>
+                    <input type="text" id="person2_postcode" name="person2_postcode">
+                </div>
+                <div class="form-group">
+                    <label for="person2_address">Street Address:</label>
+                    <input type="text" id="person2_address" name="person2_address">
+                </div>
+                <div class="form-group">
+                    <label for="person2_suburb">Suburb:</label>
+                    <input type="text" id="person2_suburb" name="person2_suburb">
+                </div>
+                <div class="form-group">
+                    <label for="person2_phone1">Phone 1:</label>
+                    <input type="tel" id="person2_phone1" name="person2_phone1">
+                </div>
+                <div class="form-group">
+                    <label for="person2_phone2">Phone 2:</label>
+                    <input type="tel" id="person2_phone2" name="person2_phone2">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="person2_address">Street Address:</label>
-                <input type="text" id="person2_address" name="person2_address">
-            </div>
-            <div class="form-group">
-                <label for="person2_suburb">Suburb:</label>
-                <input type="text" id="person2_suburb" name="person2_suburb">
-            </div>
-            <div class="form-group">
-                <label for="person2_phone1">Phone 1:</label>
-                <input type="tel" id="person2_phone1" name="person2_phone1">
-            </div>
-            <div class="form-group">
-                <label for="person2_phone2">Phone 2:</label>
-                <input type="tel" id="person2_phone2" name="person2_phone2">
-            </div>
-        </div>
+        </details>
 
         <!-- Submit -->
 
